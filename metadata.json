@@ -1,0 +1,6 @@
+{
+  "name": "Kreislaufwirtschafts-Check",
+  "description": "Ein Tool zur Auswertung der Reparierbarkeit von Produkten mittels gezielter Fragen.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

@@ -1,0 +1,56 @@
+{
+  "questions": [
+    {
+      "id": "Q1",
+      "short_label": "Kann ich es reparieren lassen?",
+      "question": "Kann das Produkt von einer normalen Werkstatt oder einem Reparaturcafé repariert werden – ohne Spezialwerkzeug vom Hersteller?",
+      "why_it_matters": "Reparierbarkeit ist das Herzstück der Kreislaufwirtschaft. Nicht reparierbare Produkte enden zwangsläufig im Müll.",
+      "yes_weight": 1.0,
+      "no_weight": 0.0,
+      "dont_know_weight": 0.28,
+      "question_multiplier": 18,
+      "var_1": "",
+      "var_2": "",
+      "var_3": ""
+    },
+    {
+      "id": "Q2",
+      "short_label": "Gibt es Ersatzteile?",
+      "question": "Sind Ersatzteile öffentlich erhältlich – nicht nur direkt beim Hersteller, sondern auch bei Drittanbietern?",
+      "why_it_matters": "Standardisierte, frei verfügbare Ersatzteile verlängern die Lebensdauer und reduzieren Herstellerabhängigkeit.",
+      "yes_weight": 1.0,
+      "no_weight": 0.0,
+      "dont_know_weight": 0.29,
+      "question_multiplier": 14,
+      "var_1": "",
+      "var_2": "",
+      "var_3": ""
+    },
+    {
+      "id": "Q3",
+      "short_label": "Akku tauschbar?",
+      "question": "Kann der Akku vom Nutzer selbst mit gängigem Werkzeug gewechselt werden?",
+      "why_it_matters": "Akkus sind Verschleißteile. Ein fest verbauter Akku macht das Gerät nach wenigen Jahren oft unbrauchbar.",
+      "yes_weight": 1.0,
+      "no_weight": 0.0,
+      "dont_know_weight": 0.20,
+      "question_multiplier": 15,
+      "var_1": "",
+      "var_2": "",
+      "var_3": ""
+    },
+    {
+      "id": "Q4",
+      "short_label": "Gibt es Software-Updates?",
+      "question": "Bietet der Hersteller auch nach mehreren Jahren noch regelmäßige Software- und Sicherheitsupdates an?",
+      "why_it_matters": "Ohne Software-Updates werden smarte Geräte schnell zu einem Sicherheitsrisiko und verlieren ihre Funktionalität.",
+      "yes_weight": 1.0,
+      "no_weight": 0.0,
+      "dont_know_weight": 0.40,
+      "question_multiplier": 12,
+      "var_1": "",
+      "var_2": "",
+      "var_3": ""
+    }
+  ]
+}

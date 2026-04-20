@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:italic,wght@400;700&family=Inter:wght@300;400;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Libre Baskerville", Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif;
+  --color-natural-bg: #F7F5F2;
+  --color-natural-text: #2D2D2A;
+  --color-natural-primary: #5A5A40;
+  --color-natural-secondary: #B06D50;
+  --color-natural-neutral: #A8A29E;
+  --color-natural-border: #E8E6DF;
+}
+
+body {
+  background-color: var(--color-natural-bg);
+  color: var(--color-natural-text);
+}
