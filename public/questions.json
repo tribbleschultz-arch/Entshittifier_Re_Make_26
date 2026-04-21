@@ -3,92 +3,110 @@
     {
       "id": "Q0",
       "short_label": "Impuls-Check",
-      "question": "Würdest du dir dieses Produkt auch dann noch kaufen, wenn du eine Woche Bedenkzeit hättest – ohne neue Werbung oder Social-Media-Impulse dazu zu sehen?",
-      "why_it_matters": "Echte Bedürfnisse überstehen eine Wartezeit. Impulskäufe hingegen verlieren ihren Reiz, sobald der externe Auslöser wegfällt. Diese Frage trennt rationale Notwendigkeit von emotionalem Begehren.",
-      "yes":        { "x":  0.00, "y":  7.00 },
-      "no":         { "x":  0.00, "y": -7.00 },
-      "dont_know":  { "x":  0.00, "y": -1.00 }
+      "question": "Ist der Kauf dieses Produkts rein emotional oder durch Werbung/Social-Media getrieben?",
+      "why_it_matters": "Impulskäufe dienen fast ausschließlich der kurzfristigen individuellen Bedürfnisbefriedigung und haben keinen gesamtgesellschaftlichen Nutzen.",
+      "yes": { "x": 0, "y": -3 },
+      "no": { "x": 0, "y": 1 },
+      "dont_know": { "x": 0, "y": -1 }
     },
     {
       "id": "Q1",
-      "short_label": "Bedürfnis-Stabilität",
-      "question": "Würdest du dieses Bedürfnis auch dann noch haben, wenn es dafür morgen keine Werbung und keine Social-Media-Trends mehr gäbe?",
-      "why_it_matters": "Echte Bedürfnisse existieren unabhängig von künstlicher Nachfrageerzeugung durch Marketing. Dies entlarvt fremdbestimmten Konsum.",
-      "yes":        { "x":  0.00, "y":  7.00 },
-      "no":         { "x":  0.00, "y": -7.00 },
-      "dont_know":  { "x":  0.00, "y": -1.00 }
+      "short_label": "Bedürfnis-Relevanz",
+      "question": "Würdest du oder die Gesellschaft dieses Produkt auch dann noch benötigen, wenn es dafür absolut kein Marketing gäbe?",
+      "why_it_matters": "Echte Notwendigkeiten (wie Kleidung oder medizinische Geräte) existieren unabhängig von künstlicher Nachfrageerzeugung.",
+      "yes": { "x": 1, "y": 2 },
+      "no": { "x": -1, "y": -3 },
+      "dont_know": { "x": 0, "y": -1 }
     },
     {
       "id": "Q2",
-      "short_label": "Gemeinwohl-Optimierung",
-      "question": "Ist das Produkt explizit darauf ausgelegt, geteilt, gemeinsam genutzt oder als Teil einer öffentlichen Infrastruktur zu funktionieren?",
-      "why_it_matters": "Sharing-Modelle reduzieren die Menge an benötigten physischen Gütern pro Person massiv und fördern soziale Interaktion.",
-      "yes":        { "x": -0.50, "y":  0.25 },
-      "no":         { "x":  0.50, "y": -0.25 },
-      "dont_know":  { "x":  0.00, "y":  0.00 }
+      "short_label": "Gemeinwohl-Infrastruktur",
+      "question": "Ist das Produkt explizit darauf ausgelegt, von vielen geteilt zu werden oder als Teil einer öffentlichen Infrastruktur zu funktionieren?",
+      "why_it_matters": "Produkte wie Rettungswagen oder öffentliche Verkehrsmittel maximieren den gesellschaftlichen Nutzen (hohes Y) und reduzieren pro Kopf den Materialaufwand.",
+      "yes": { "x": 1, "y": 4 },
+      "no": { "x": -1, "y": -2 },
+      "dont_know": { "x": 0, "y": 0 }
     },
     {
       "id": "Q3",
       "short_label": "Zeitlose Nutzbarkeit",
-      "question": "Ist das Produkt so gestaltet (einfache Formen, kein Trend-Design, keine unnötige Software), dass es auch in 20 Jahren noch voll nutzbar ist?",
-      "why_it_matters": "Ästhetische und softwarebasierte Obsoleszenz führt oft dazu, dass funktionierende Dinge weggeworfen werden. Zeitlosigkeit ist gelebte Ressourcenschonung.",
-      "yes":        { "x":  3.25, "y":  0.00 },
-      "no":         { "x": -3.25, "y":  0.00 },
-      "dont_know":  { "x": -1.00, "y":  0.00 }
+      "question": "Ist das Produkt so gestaltet (kein Trend-Design, keine künstliche Software-Veralterung), dass es auch in 20 Jahren noch voll funktionsfähig ist?",
+      "why_it_matters": "Obsoleszenz ist der Feind der Nachhaltigkeit. Zeitlosigkeit bedeutet gelebte Ressourcenschonung (hohes X).",
+      "yes": { "x": 2, "y": 0 },
+      "no": { "x": -2, "y": 0 },
+      "dont_know": { "x": -1, "y": 0 }
     },
     {
       "id": "Q4",
-      "short_label": "Funktionale Reduktion",
-      "question": "Ersetzt dieses Produkt durch seine Vielseitigkeit nachweislich den Kauf von mindestens zwei anderen spezialisierten Einzelgeräten?",
-      "why_it_matters": "Ein 'Master-Gerät' reduziert den materiellen Fußabdruck im Haushalt und fördert einen minimalistischen Lebensstil.",
-      "yes":        { "x":  0.50, "y":  0.00 },
-      "no":         { "x": -0.50, "y":  0.00 },
-      "dont_know":  { "x":  0.00, "y":  0.00 }
+      "short_label": "Funktionale Reduktion (Suffizienz)",
+      "question": "Ersetzt dieses Produkt durch seine durchdachte Vielseitigkeit nachweislich den Kauf von mehreren anderen spezialisierten Geräten?",
+      "why_it_matters": "Reduktion des Gesamtbestands verringert den materiellen Fußabdruck drastisch, egal ob auf individueller oder gesellschaftlicher Ebene.",
+      "yes": { "x": 2, "y": 0 },
+      "no": { "x": -1, "y": 0 },
+      "dont_know": { "x": 0, "y": 0 }
     },
     {
       "id": "Q5",
-      "short_label": "Postwachstums-Geschäftsmodell",
-      "question": "Verdient der Hersteller sein Hauptgeld durch Service und Instandhaltung statt durch den massenhaften Verkauf von Neugeräten?",
-      "why_it_matters": "Wenn Langlebigkeit das Profitmodell des Herstellers ist, verschwindet der Anreiz für geplante Obsoleszenz.",
-      "yes":        { "x":  1.00, "y":  0.00 },
-      "no":         { "x": -1.00, "y":  0.00 },
-      "dont_know":  { "x": -0.50, "y":  0.00 }
+      "short_label": "Zirkuläres Modell",
+      "question": "Ist das Geschäftsmodell des Herstellers auf Langlebigkeit, Instandhaltung oder Rücknahme/Zirkularität ausgelegt, statt auf massenhaften Neuverkauf?",
+      "why_it_matters": "Wenn Langlebigkeit belohnt wird, entstehen Produkte, die maximal ressourcenschonend im Kreislauf bleiben.",
+      "yes": { "x": 2, "y": 0 },
+      "no": { "x": -2, "y": 0 },
+      "dont_know": { "x": -1, "y": 0 }
     },
     {
       "id": "Q6",
       "short_label": "Handwerkliche Souveränität",
-      "question": "Kannst du das Produkt mit herkömmlichem Werkzeug öffnen und ohne Software-Sperren oder Klebeverbindungen selbst reparieren?",
-      "why_it_matters": "Reparierbarkeit macht Nutzer unabhängig von Herstellern und verlängert die Produktlebensdauer radikal.",
-      "yes":        { "x":  3.25, "y":  0.50 },
-      "no":         { "x": -3.25, "y": -0.50 },
-      "dont_know":  { "x": -1.00, "y":  0.00 }
+      "question": "Ist das Produkt ohne Software-Sperren, Spezialwerkzeug oder Klebeverbindungen vollständig reparierbar?",
+      "why_it_matters": "Reparierbarkeit ist einer der stärksten Hebel für Nachhaltigkeit (X-Achse), da es das Wegwerfen intakter Materialien verhindert.",
+      "yes": { "x": 3, "y": 0 },
+      "no": { "x": -3, "y": 0 },
+      "dont_know": { "x": -1, "y": 0 }
     },
     {
       "id": "Q7",
       "short_label": "Regionale Subsistenz",
-      "question": "Könnten wesentliche Teile des Produkts lokal hergestellt oder in einer regionalen Werkstatt nachgebaut werden?",
-      "why_it_matters": "Regionale Produktion verkürzt Lieferwege und macht die Versorgung krisensicher und unabhängiger von globalen Ausbeutungsstrukturen.",
-      "yes":        { "x":  3.25, "y":  0.00 },
-      "no":         { "x": -3.25, "y":  0.00 },
-      "dont_know":  { "x": -1.00, "y":  0.00 }
+      "question": "Wird das Produkt (oder seine wesentlichen Teile) lokal hergestellt und könnte es in einer regionalen Werkstatt nachgebaut werden?",
+      "why_it_matters": "Regionale Produktion (wie das lokale Flachshemd) spart Transportenergie, fördert Unabhängigkeit und ist hochgradig nachhaltig.",
+      "yes": { "x": 2, "y": 0 },
+      "no": { "x": -2, "y": 0 },
+      "dont_know": { "x": -1, "y": 0 }
     },
     {
       "id": "Q8",
       "short_label": "Zukunftssichere Modularität",
-      "question": "Können technische Kernkomponenten (wie Akkus oder Chips) bei Veralterung einzeln getauscht werden, während das Gehäuse erhalten bleibt?",
-      "why_it_matters": "Modularität verhindert, dass ein ansonsten perfektes Produkt wegen eines einzelnen defekten oder veralteten Teils zum Elektroschrott wird.",
-      "yes":        { "x":  0.25, "y":  0.00 },
-      "no":         { "x": -0.25, "y":  0.00 },
-      "dont_know":  { "x": -0.25, "y":  0.00 }
+      "question": "Können technische Kernkomponenten bei Defekt oder Veralterung einzeln getauscht werden, während der Rest erhalten bleibt?",
+      "why_it_matters": "Modularität verhindert die Entstehung von Elektroschrott. Hochverarbeitete Luxusgüter (wie Privatjets oder Sportwagen) sind oft verschlossene, hochspezialisierte Systeme.",
+      "yes": { "x": 2, "y": 0 },
+      "no": { "x": -2, "y": 0 },
+      "dont_know": { "x": -1, "y": 0 }
     },
     {
       "id": "Q9",
-      "short_label": "Ressourcen Aufwand",
-      "question": "Bindet das Produkt viele Rohstoffe/Ressourcen und oder wird für deren Verarbeitung viel Energie Aufgewendet?",
-      "why_it_matters": "Aufwendige Verarbeitung von Rohstoffen bindet Energie und Rohstoffe die nicht in den Kreislauf zurückgeführt/verbraucht werden und somit verloren gehen. z.B. Abgerodete Regenwälder etc.",
-      "yes":        { "x": -3.25, "y":  0.00 },
-      "no":         { "x":  3.25, "y":  0.00 },
-      "dont_know":  { "x": -1.00, "y":  0.00 }
+      "short_label": "Ressourcen- & Energieintensität",
+      "question": "Ist die Herstellung oder Nutzung des Produkts extrem ressourcen- und energieintensiv (z.B. seltene Erden, fossile Brennstoffe, hochgradige industrielle Verarbeitung)?",
+      "why_it_matters": "Aufwendige Verarbeitung und massiver Energiebedarf (z.B. Hubschrauber, Jet) sind der Inbegriff von Unnachhaltigkeit, da diese Ressourcen dem Kreislauf entzogen werden.",
+      "yes": { "x": -4, "y": 0 },
+      "no": { "x": 3, "y": 0 },
+      "dont_know": { "x": -2, "y": 0 }
+    },
+    {
+      "id": "Q10",
+      "short_label": "Systemrelevanz",
+      "question": "Könnte unsere moderne Gesellschaft (inklusive Gesundheitsversorgung, Infrastruktur und Grundversorgung) problemlos weiter existieren, wenn dieses Produkt nicht mehr da wäre?",
+      "why_it_matters": "Trennt harten gesamtgesellschaftlichen Bedarf von privatem Luxus. Ohne Rettungswagen oder Basis-Kleidung kollabiert die Gesellschaft. Ohne Spielekonsole oder Sportwagen funktioniert sie weiterhin einwandfrei.",
+      "yes": { "x": 0, "y": -4 },
+      "no": { "x": 0, "y": 5 },
+      "dont_know": { "x": 0, "y": -1 }
+    },
+    {
+      "id": "Q11",
+      "short_label": "Fokus Gemeinwohl vs. Individuum",
+      "question": "Dient der Einsatz dieses Produkts in erster Linie der Lösung eines übergeordneten gesellschaftlichen Problems (z.B. Lebensrettung, Wohlstand für alle) anstatt dem Komfort, Status oder Vergnügen Einzelner?",
+      "why_it_matters": "Ein Rettungshubschrauber nützt allen und hat extremen gesellschaftlichen Wert (hohes Y). Ein Privatjet verbraucht ähnliche Ressourcen, dient aber nur dem Luxus einer Einzelperson (tiefes Y).",
+      "yes": { "x": 0, "y": 4 },
+      "no": { "x": 0, "y": -4 },
+      "dont_know": { "x": 0, "y": -1 }
     }
   ]
 }

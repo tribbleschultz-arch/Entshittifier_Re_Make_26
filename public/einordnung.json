@@ -1,19 +1,23 @@
 {
   "top_left": {
     "name": "Schwaches Potential",
-    "sentence": "Das Produkt adressiert ein Bedürfnis, offenbart aber deutliche Defizite bei der Nachhaltigkeit."
+    "sentence": "Das Produkt adressiert zwar ein gesellschaftliches Bedürfnis, offenbart jedoch deutliche Defizite bei der Nachhaltigkeit."
   },
-  "bottom_half": {
+  "bottom_left": {
     "name": "Konsumgesteuerte artifizielle Bedarfe",
-    "sentence": "Dieses Produkt scheint primär künstlich erzeugte Bedarfe zu befriedigen. Überdenke kritisch, ob dieser Konsum für dich wirklich essenziell ist oder ob du dich von äußeren Impulsen leiten lässt."
+    "sentence": "Dieses Produkt befriedigt primär individuelle und künstlich erzeugte Bedarfe mit negativer ökologischer Auswirkung. Überdenke kritisch, ob dieser Konsum wirklich essenziell ist."
+  },
+  "bottom_right": {
+    "name": "Schwaches Potential",
+    "sentence": "Das Produkt punktet durch Sustainability, bedient jedoch isoliert betrachtet stark eher individuelle Bedürfnisse – das Potential für echte gesellschaftliche Suffizienz ist verringert."
   },
   "top_right_potential": {
     "name": "Starkes Potential",
-    "sentence": "Dein Produkt bedient ein echtes Grundbedürfnis und weist Nachhaltigkeitsansätze auf. Ein paar Kriterien verhindern jedoch noch den Sprung in den absolut optimalen Bereich."
+    "sentence": "Dein Produkt bedient ein gesellschaftliches Bedürfnis und weist Nachhaltigkeitsansätze auf. Ein paar Kriterien verhindern jedoch noch den Sprung in den absolut optimalen Bereich."
   },
   "top_right_suffizient": {
     "name": "Suffizient",
-    "sentence": "Hervorragend! Dieses Produkt erfüllt deine Bedürfnisse ideal bei absolut nachhaltiger, reparierbarer Ausgestaltung. Ein starkes Vorzeigebeispiel für Suffizienz."
+    "sentence": "Hervorragend! Dieses Produkt verknüpft gesellschaftlichen Mehrwert ideal mit absolut nachhaltiger, reparierbarer Ausgestaltung. Ein starkes Vorzeigebeispiel für Suffizienz."
   },
   "center_neutral": {
     "name": "Zu wenige Infos",

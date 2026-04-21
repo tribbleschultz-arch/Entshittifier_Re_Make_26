@@ -95,8 +95,8 @@ export default function App() {
     if (distFromCenter <= 3.0) return zones.center_neutral;
 
     // Remaining spaces bound to the hard quadrants
-    if (boundedX < 0 && boundedY < 0) return zones.bottom_half; // Bottom-left (Konsumgesteuerte artif. Bedarfe)
-    if (boundedX >= 0 && boundedY < 0) return zones.top_left; // Bottom-right also maps to Schwaches Potential
+    if (boundedX < 0 && boundedY < 0) return zones.bottom_left; // Bottom-left (Konsumgesteuerte artif. Bedarfe)
+    if (boundedX >= 0 && boundedY < 0) return zones.bottom_right; // Bottom-right also maps to Schwaches Potential
     if (boundedX < 0 && boundedY >= 0) return zones.top_left; // Top-left maps to Schwaches Potential
     if (boundedX >= 0 && boundedY >= 0) return zones.top_right_potential; // Remaining top-right inside arc
 
@@ -282,14 +282,19 @@ export default function App() {
               <div className="flex-1 flex flex-col items-center justify-start w-full px-6">
                 
                 {/* The 2D Coordinate Grid Container */}
-                <div className="relative w-full max-w-[320px] shrink-0 mt-8 mb-4">
+                <div className="relative w-full max-w-[320px] shrink-0 mt-12 mb-10">
                   
                   {/* External Axis Labels */}
-                  <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-[9px] font-bold text-natural-primary uppercase tracking-[0.15em] whitespace-nowrap z-10 w-full text-center">
-                    Bedürfnis <span className="opacity-50">↑</span>
+                  <div className="absolute -top-7 left-1/2 -translate-x-1/2 text-[9px] font-bold text-natural-primary uppercase tracking-[0.1em] whitespace-nowrap z-10 w-full text-center">
+                    Gesellsch. Bedürfnis <span className="opacity-50">↑</span>
                   </div>
-                  <div className="absolute -bottom-[22px] right-2 text-[9px] font-bold text-natural-primary uppercase tracking-[0.15em] whitespace-nowrap z-10">
-                    Nachhaltigkeit <span className="opacity-50">→</span>
+                  
+                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[9px] font-bold text-natural-primary uppercase tracking-[0.1em] whitespace-nowrap z-10 w-full text-center flex items-center justify-center gap-1">
+                    <span className="opacity-50">↓</span> Individual-Bedürfnis
+                  </div>
+
+                  <div className="absolute top-1/2 -right-8 -translate-y-1/2 translate-x-1/2 rotate-90 text-[9px] font-bold text-natural-primary uppercase tracking-[0.1em] whitespace-nowrap z-10 flex items-center gap-1">
+                    Sustainability <span className="opacity-50">↑</span>
                   </div>
 
                   {/* Actual Matrix Box */}
