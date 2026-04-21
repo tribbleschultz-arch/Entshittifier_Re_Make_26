@@ -11,7 +11,6 @@ export default function App() {
   const [zones, setZones] = useState<EinordnungData | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, AnswerOption>>({});
-  const [maxBounds, setMaxBounds] = useState<ScoreImpact>({ x: 0.1, y: 0.1 });
   const [isFinished, setIsFinished] = useState(false);
   const [openDetails, setOpenDetails] = useState<Record<string, boolean>>({});
   const [loading, setLoading] = useState(true);
@@ -34,16 +33,6 @@ export default function App() {
       
       setQuestions(dataQ.questions);
       setZones(dataZ);
-
-      // Compute theoretical maximum bounds
-      let maxX = 0;
-      let maxY = 0;
-      dataQ.questions.forEach((q: Question) => {
-        maxX += Math.max(Math.abs(q.yes.x), Math.abs(q.no.x), Math.abs(q.dont_know.x));
-        maxY += Math.max(Math.abs(q.yes.y), Math.abs(q.no.y), Math.abs(q.dont_know.y));
-      });
-      setMaxBounds({ x: maxX || 1, y: maxY || 1 });
-      
     } catch (err: any) {
       setError(err.message || 'Ein Fehler ist aufgetreten');
     } finally {
@@ -68,27 +57,51 @@ export default function App() {
     return { x, y };
   }, [answers, questions]);
 
-  // Normalized scores bounded to [-1, 1]
-  const normX = useMemo(() => Math.max(-1, Math.min(1, currentScore.x / maxBounds.x)), [currentScore.x, maxBounds.x]);
-  const normY = useMemo(() => Math.max(-1, Math.min(1, currentScore.y / maxBounds.y)), [currentScore.y, maxBounds.y]);
+  // Hardcoded constraints requested: -15 to 15
+  const MAX_ABS = 15;
 
-  // Determine Active Zone
+  // Bounded Absolute Scores
+  const boundedX = useMemo(() => Math.max(-MAX_ABS, Math.min(MAX_ABS, currentScore.x)), [currentScore.x]);
+  const boundedY = useMemo(() => Math.max(-MAX_ABS, Math.min(MAX_ABS, currentScore.y)), [currentScore.y]);
+
+  const normX = boundedX / MAX_ABS;
+  const normY = boundedY / MAX_ABS;
+
+  // Determine Active Zone based directly on the mathematical boundaries of the sketch
   const activeZone = useMemo(() => {
     if (!zones) return null;
 
-    // Check center neutral zone first
-    const distFromCenter = Math.sqrt(normX * normX + normY * normY);
-    if (distFromCenter <= 0.25) return zones.center_neutral;
+    // Is it in the newly sculpted Sufficiency boundary?
+    // The curve goes from (-15, 14) to (0, 13)
+    // Then a circular arc (r=13) from (0, 13) to (13, 0)
+    // Then a line from (13, 0) to (14, -15)
+    const isSuffizient = (() => {
+      // Top Left Area: check if Y is above the line y = 13 - x/15
+      if (boundedX <= 0) return boundedY >= 13 - (boundedX / 15);
+      
+      // Top Right Area: check if it's over the radial boundary of 13
+      if (boundedX > 0 && boundedY > 0) return (boundedX * boundedX + boundedY * boundedY) >= 169; // 13^2 = 169
+      
+      // Bottom Right Area: check if X is to the right of the line x = 13 - y/15
+      if (boundedY <= 0) return boundedX >= 13 - (boundedY / 15);
+      
+      return false;
+    })();
 
-    if (normX < 0 && normY >= 0) return zones.top_left;
-    else if (normX < 0 && normY < 0) return zones.bottom_left;
-    else if (normX >= 0 && normY < 0) return zones.bottom_right;
-    else {
-      // Top Right: requires radius check from Top-Right corner (1, 1)
-      const distFromTR = Math.sqrt(Math.pow(1 - normX, 2) + Math.pow(1 - normY, 2));
-      return distFromTR <= 1.0 ? zones.top_right_suffizient : zones.top_right_potential;
-    }
-  }, [normX, normY, zones]);
+    if (isSuffizient) return zones.top_right_suffizient;
+    
+    // Center Radius: Zu wenige infos (r <= 3.0 out of 15)
+    const distFromCenter = Math.sqrt(boundedX * boundedX + boundedY * boundedY);
+    if (distFromCenter <= 3.0) return zones.center_neutral;
+
+    // Remaining spaces bound to the hard quadrants
+    if (boundedX < 0 && boundedY < 0) return zones.bottom_half; // Bottom-left (Konsumgesteuerte artif. Bedarfe)
+    if (boundedX >= 0 && boundedY < 0) return zones.top_left; // Bottom-right also maps to Schwaches Potential
+    if (boundedX < 0 && boundedY >= 0) return zones.top_left; // Top-left maps to Schwaches Potential
+    if (boundedX >= 0 && boundedY >= 0) return zones.top_right_potential; // Remaining top-right inside arc
+
+    return null;
+  }, [boundedX, boundedY, zones]);
 
   const handleAnswer = (option: AnswerOption) => {
     if (isTransitioning) return;
@@ -268,14 +281,29 @@ export default function App() {
 
               <div className="flex-1 flex flex-col items-center justify-start w-full px-6">
                 
-                {/* The 2D Coordinate Grid */}
-                <div className="relative w-full max-w-sm aspect-square bg-white rounded-[32px] border border-natural-border shadow-[0_10px_30px_rgba(45,106,79,0.05)] mb-4 overflow-hidden shrink-0 mt-4">
+                {/* The 2D Coordinate Grid Container */}
+                <div className="relative w-full max-w-[320px] shrink-0 mt-8 mb-4">
                   
-                  {/* Highlight Zones with beautiful SVG overlays */}
+                  {/* External Axis Labels */}
+                  <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-[9px] font-bold text-natural-primary uppercase tracking-[0.15em] whitespace-nowrap z-10 w-full text-center">
+                    Bedürfnis <span className="opacity-50">↑</span>
+                  </div>
+                  <div className="absolute -bottom-[22px] right-2 text-[9px] font-bold text-natural-primary uppercase tracking-[0.15em] whitespace-nowrap z-10">
+                    Nachhaltigkeit <span className="opacity-50">→</span>
+                  </div>
+
+                  {/* Actual Matrix Box */}
+                  <div className="relative w-full aspect-square bg-white rounded-[32px] border border-natural-border shadow-[0_10px_30px_rgba(45,106,79,0.05)] overflow-hidden">
+                  
+                    {/* Highlight Zones with beautiful SVG overlays mapping directly to math formulation */}
                   <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 200 200" preserveAspectRatio="none">
                     <defs>
-                      <radialGradient id="suffizienzFill" cx="1" cy="0" r="1">
-                        <stop offset="0%" stopColor="#ABD037" stopOpacity="0.45"/>
+                      <radialGradient id="potentialFill" cx="100" cy="100" r="86.67" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="#FDB917" stopOpacity="0.45"/>
+                        <stop offset="100%" stopColor="#FDB917" stopOpacity="0.05"/>
+                      </radialGradient>
+                      <radialGradient id="suffizienzFill" cx="200" cy="0" r="200" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="#ABD037" stopOpacity="0.35"/>
                         <stop offset="100%" stopColor="#ABD037" stopOpacity="0"/>
                       </radialGradient>
                       <linearGradient id="arcStrokeGradient" x1="0" y1="0" x2="1" y2="1">
@@ -284,36 +312,42 @@ export default function App() {
                       </linearGradient>
                     </defs>
 
-                    {/* Axis lines - very subtle translucent green */}
+                    {/* Bottom Half (-Y bounding) */}
+                    <polygon points="0,100 186.67,100 193.33,200 0,200" fill="rgba(181, 9, 0, 0.04)" />
+
+                    {/* Top Left (-X, +Y bounding) */}
+                    <polygon points="0,6.67 100,13.33 100,100 0,100" fill="rgba(0, 0, 0, 0.02)" />
+
+                    {/* Starkes Potential (inside arc from (0,13) to (13,0)) */}
+                    <path d="M 100 100 L 100 13.33 A 86.67 86.67 0 0 1 186.67 100 Z" fill="url(#potentialFill)" />
+
+                    {/* Suffizienz (outside the entire boundary spanning top and right) */}
+                    <path d="M 0 0 L 200 0 L 200 200 L 193.33 200 L 186.67 100 A 86.67 86.67 0 0 0 100 13.33 L 0 6.67 Z" fill="url(#suffizienzFill)" />
+                    
+                    {/* The continuous bounding curve from x=-15 to x=15 marking Suffizienz limit */}
+                    <path d="M 0 6.67 L 100 13.33 A 86.67 86.67 0 0 1 186.67 100 L 193.33 200" fill="none" stroke="url(#arcStrokeGradient)" strokeWidth="1.5" strokeDasharray="4 6" />
+
+                    {/* Center origin visual marker (Zu wenige Infos: r=3 => ~20 units) */}
+                    <circle cx="100" cy="100" r="20" fill="rgba(255,255,255,0.7)" stroke="rgba(0,0,0,0.1)" strokeWidth="1" />
+
+                    {/* Axis lines - very subtle translucent green drawn ON TOP of the fills */}
                     <line x1="100" y1="0" x2="100" y2="200" stroke="rgba(45,106,79,0.15)" strokeWidth="1.5" />
                     <line x1="0" y1="100" x2="200" y2="100" stroke="rgba(45,106,79,0.15)" strokeWidth="1.5" />
-                    
-                    {/* TR Quadrant Arc Fill (Suffizient) - active green radial gradient from top-right corner */}
-                    <path d="M 200 0 L 100 0 A 100 100 0 0 0 200 100 Z" fill="url(#suffizienzFill)" />
-                    
-                    {/* The powerful gradient Arc Line - getting stronger towards top-left of the quadrant */}
-                    <path d="M 100 0 A 100 100 0 0 0 200 100" fill="none" stroke="url(#arcStrokeGradient)" strokeWidth="1.5" strokeDasharray="4 6" />
                   </svg>
 
-                  {/* Elegant Axis Labels (Only Maximums) */}
-                  <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur shadow-sm px-3 py-1 rounded-full text-[8.5px] font-bold text-natural-primary uppercase tracking-[0.15em] border border-natural-border flex items-center gap-1 z-10 transition-colors">
-                    Grundbedürfnis <span className="opacity-50">↑</span>
-                  </div>
-
-                  <div className="absolute top-1/2 right-3 -translate-y-1/2 translate-x-1/2 -rotate-90 bg-white/95 backdrop-blur shadow-sm px-3 py-1 rounded-full text-[8.5px] font-bold text-natural-primary uppercase tracking-[0.15em] border border-natural-border flex items-center gap-1 z-10 origin-center transition-colors">
-                    Nachhaltigkeit <span className="opacity-50">↑</span>
-                  </div>
-
-                  {/* Dynamic internal labels for Top Right */}
-                  <div className="absolute top-[8%] right-[8%] text-[8.5px] uppercase tracking-[0.15em] font-bold text-[#7ca019] text-right pointer-events-none">
+                  {/* Dynamic internal labels matching sketch placement strictly */}
+                  <div className="absolute top-[8%] right-[8%] text-[8px] uppercase tracking-[0.15em] font-bold text-[#7ca019] text-right pointer-events-none">
                     Suffizienz
                   </div>
-                  <div className="absolute top-[41%] right-[22%] text-[8px] uppercase tracking-[0.15em] font-bold text-natural-primary/40 text-right pointer-events-none">
-                    Potential
+                  <div className="absolute top-[38%] right-[15%] text-[7.5px] uppercase tracking-[0.15em] font-bold text-[#b48208] text-right pointer-events-none opacity-80">
+                    Starkes Potential
+                  </div>
+                  <div className="absolute bottom-[10%] right-[8%] text-[7.5px] uppercase tracking-[0.15em] font-bold text-gray-400 text-right pointer-events-none opacity-80">
+                    Schwaches Potential
                   </div>
 
                   {/* BLOB CONTAINER mapping to target Coordinates */}
-                  <div className="absolute inset-0 overflow-hidden rounded-[32px] pointer-events-none">
+                  <div className="absolute inset-0 pointer-events-none">
                     <motion.div
                       layoutId="main-score-blob"
                       className="absolute w-20 h-20 -ml-10 -mt-10 z-20"
@@ -329,6 +363,7 @@ export default function App() {
                   </div>
                   
                 </div>
+              </div>
 
                 {/* Display evaluation text dynamically */}
                 <AnimatePresence mode="wait">

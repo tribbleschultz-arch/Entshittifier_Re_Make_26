@@ -1,26 +1,22 @@
 {
   "top_left": {
-    "name": "Notwendig, aber ausbaufähig",
-    "sentence": "Das Produkt adressiert ein Grundbedürfnis, offenbart aber deutliche Defizite bei der Suffizienz. Es gibt höchstwahrscheinlich langlebigere und ressourcenschonendere Alternativen."
+    "name": "Schwaches Potential",
+    "sentence": "Das Produkt adressiert ein Bedürfnis, offenbart aber deutliche Defizite bei der Nachhaltigkeit."
   },
-  "bottom_left": {
-    "name": "Kritischer Statuskonsum",
-    "sentence": "Geringe Suffizienz gepaart mit einem Produkt, das eher dem Luxus oder kurzweiligen Exzess dient. Überdenke kritisch, ob dieser Konsum für dich wirklich essenziell ist."
-  },
-  "bottom_right": {
-    "name": "Nachhaltiger Luxus",
-    "sentence": "Dieses Produkt ist zwar nicht zwingend im Alltag essenziell, punktet dafür aber mit einem wunderbar suffizienten und reparaturfreundlichen System-Design."
+  "bottom_half": {
+    "name": "Konsumgesteuerte artifizielle Bedarfe",
+    "sentence": "Dieses Produkt scheint primär künstlich erzeugte Bedarfe zu befriedigen. Überdenke kritisch, ob dieser Konsum für dich wirklich essenziell ist oder ob du dich von äußeren Impulsen leiten lässt."
   },
   "top_right_potential": {
-    "name": "Starkes Potenzial",
-    "sentence": "Dein Produkt bedient ein echtes Grundbedürfnis und weist einige hervorragende Ansätze auf. Ein paar Kriterien verhindern jedoch noch den Sprung in den absolut optimalen, suffizienten Bereich."
+    "name": "Starkes Potential",
+    "sentence": "Dein Produkt bedient ein echtes Grundbedürfnis und weist Nachhaltigkeitsansätze auf. Ein paar Kriterien verhindern jedoch noch den Sprung in den absolut optimalen Bereich."
   },
   "top_right_suffizient": {
-    "name": "Suffizienz-Pionier",
-    "sentence": "Hervorragend! Dieses Produkt erfüllt deine Bedürfnisse ideal bei absolut nachhaltiger, reparierbarer Ausgestaltung. Ein starkes Vorzeigebeispiel für die echte Kreislaufwirtschaft."
+    "name": "Suffizient",
+    "sentence": "Hervorragend! Dieses Produkt erfüllt deine Bedürfnisse ideal bei absolut nachhaltiger, reparierbarer Ausgestaltung. Ein starkes Vorzeigebeispiel für Suffizienz."
   },
   "center_neutral": {
-    "name": "Status Quo",
-    "sentence": "Dieses Produkt verhält sich unauffällig in der Mitte. Es gibt weder drastische negative Auswirkungen noch revolutionäre ökologische Vorteile."
+    "name": "Zu wenige Infos",
+    "sentence": "Die Antworten weisen in keine klare Richtung oder gleichen sich stark aus. Es fehlen klare Tendenzen zur abschließenden Einordnung."
   }
 }
