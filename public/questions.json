@@ -4,82 +4,91 @@
       "id": "Q0",
       "short_label": "Impuls-Check",
       "question": "Würdest du dir dieses Produkt auch dann noch kaufen, wenn du eine Woche Bedenkzeit hättest – ohne neue Werbung oder Social-Media-Impulse dazu zu sehen?",
-      "why_it_matters": "Echte Bedürfnisse überstehen eine Wartezeit. Impulskäufe verlieren ihren Reiz, sobald der externe Reiz wegfällt.",
-      "yes": { "x": 0, "y": 3 },
-      "no": { "x": 0, "y": -4 },
-      "dont_know": { "x": 0, "y": -1 }
+      "why_it_matters": "Echte Bedürfnisse überstehen eine Wartezeit. Impulskäufe hingegen verlieren ihren Reiz, sobald der externe Auslöser wegfällt. Diese Frage trennt rationale Notwendigkeit von emotionalem Begehren.",
+      "yes":        { "x":  0.00, "y":  7.00 },
+      "no":         { "x":  0.00, "y": -7.00 },
+      "dont_know":  { "x":  0.00, "y": -1.00 }
     },
     {
       "id": "Q1",
       "short_label": "Bedürfnis-Stabilität",
       "question": "Würdest du dieses Bedürfnis auch dann noch haben, wenn es dafür morgen keine Werbung und keine Social-Media-Trends mehr gäbe?",
-      "why_it_matters": "Dies entlarvt fremdbestimmten Konsum. Echte Bedürfnisse existieren unabhängig von künstlicher Nachfrageerzeugung.",
-      "yes": { "x": 1, "y": 3 },
-      "no": { "x": -1, "y": -3 },
-      "dont_know": { "x": 0, "y": -1 }
+      "why_it_matters": "Echte Bedürfnisse existieren unabhängig von künstlicher Nachfrageerzeugung durch Marketing. Dies entlarvt fremdbestimmten Konsum.",
+      "yes":        { "x":  0.00, "y":  7.00 },
+      "no":         { "x":  0.00, "y": -7.00 },
+      "dont_know":  { "x":  0.00, "y": -1.00 }
     },
     {
       "id": "Q2",
       "short_label": "Gemeinwohl-Optimierung",
       "question": "Ist das Produkt explizit darauf ausgelegt, geteilt, gemeinsam genutzt oder als Teil einer öffentlichen Infrastruktur zu funktionieren?",
-      "why_it_matters": "Sharing reduziert die Menge an benötigten physischen Gütern pro Kopf massiv und fördert soziale Suffizienz.",
-      "yes": { "x": 2, "y": 4 },
-      "no": { "x": -1, "y": -2 },
-      "dont_know": { "x": 0, "y": 0 }
+      "why_it_matters": "Sharing-Modelle reduzieren die Menge an benötigten physischen Gütern pro Person massiv und fördern soziale Interaktion.",
+      "yes":        { "x": -0.50, "y":  0.25 },
+      "no":         { "x":  0.50, "y": -0.25 },
+      "dont_know":  { "x":  0.00, "y":  0.00 }
     },
     {
       "id": "Q3",
       "short_label": "Zeitlose Nutzbarkeit",
       "question": "Ist das Produkt so gestaltet (einfache Formen, kein Trend-Design, keine unnötige Software), dass es auch in 20 Jahren noch voll nutzbar ist?",
-      "why_it_matters": "Zeitlosigkeit verhindert ästhetische Obsoleszenz – das Wegwerfen von Dingen, die technisch noch funktionieren.",
-      "yes": { "x": 2, "y": 2 },
-      "no": { "x": -2, "y": -2 },
-      "dont_know": { "x": -1, "y": -1 }
+      "why_it_matters": "Ästhetische und softwarebasierte Obsoleszenz führt oft dazu, dass funktionierende Dinge weggeworfen werden. Zeitlosigkeit ist gelebte Ressourcenschonung.",
+      "yes":        { "x":  3.25, "y":  0.00 },
+      "no":         { "x": -3.25, "y":  0.00 },
+      "dont_know":  { "x": -1.00, "y":  0.00 }
     },
     {
       "id": "Q4",
       "short_label": "Funktionale Reduktion",
-      "question": "Ersetzt dieses Produkt durch seine Vielseitigkeit nachweislich den Kauf oder Besitz von mindestens zwei anderen spezialisierten Einzelgeräten?",
-      "why_it_matters": "Multifunktionale, langlebige Werkzeuge reduzieren den materiellen Gesamt-Fußabdruck eines Haushalts.",
-      "yes": { "x": 1, "y": 3 },
-      "no": { "x": 0, "y": -2 },
-      "dont_know": { "x": 0, "y": 0 }
+      "question": "Ersetzt dieses Produkt durch seine Vielseitigkeit nachweislich den Kauf von mindestens zwei anderen spezialisierten Einzelgeräten?",
+      "why_it_matters": "Ein 'Master-Gerät' reduziert den materiellen Fußabdruck im Haushalt und fördert einen minimalistischen Lebensstil.",
+      "yes":        { "x":  0.50, "y":  0.00 },
+      "no":         { "x": -0.50, "y":  0.00 },
+      "dont_know":  { "x":  0.00, "y":  0.00 }
     },
     {
       "id": "Q5",
       "short_label": "Postwachstums-Geschäftsmodell",
-      "question": "Verdient der Hersteller sein Hauptgeld durch Service, Reparatur und Instandhaltung statt durch den massenhaften Verkauf von Neugeräten?",
-      "why_it_matters": "Ein Geschäftsmodell, das auf Langlebigkeit basiert, bricht die Logik der geplanten Obsoleszenz.",
-      "yes": { "x": 4, "y": 0 },
-      "no": { "x": -3, "y": 0 },
-      "dont_know": { "x": -1, "y": 0 }
+      "question": "Verdient der Hersteller sein Hauptgeld durch Service und Instandhaltung statt durch den massenhaften Verkauf von Neugeräten?",
+      "why_it_matters": "Wenn Langlebigkeit das Profitmodell des Herstellers ist, verschwindet der Anreiz für geplante Obsoleszenz.",
+      "yes":        { "x":  1.00, "y":  0.00 },
+      "no":         { "x": -1.00, "y":  0.00 },
+      "dont_know":  { "x": -0.50, "y":  0.00 }
     },
     {
       "id": "Q6",
       "short_label": "Handwerkliche Souveränität",
-      "question": "Kannst du das Produkt mit herkömmlichem Werkzeug öffnen und ohne proprietäre Software-Sperren oder Klebesiegel selbst reparieren?",
-      "why_it_matters": "Die Unabhängigkeit vom Hersteller ist die Basis für eine lange Nutzungsdauer und Ressourcenschonung.",
-      "yes": { "x": 4, "y": 0 },
-      "no": { "x": -4, "y": 0 },
-      "dont_know": { "x": -2, "y": 0 }
+      "question": "Kannst du das Produkt mit herkömmlichem Werkzeug öffnen und ohne Software-Sperren oder Klebeverbindungen selbst reparieren?",
+      "why_it_matters": "Reparierbarkeit macht Nutzer unabhängig von Herstellern und verlängert die Produktlebensdauer radikal.",
+      "yes":        { "x":  3.25, "y":  0.50 },
+      "no":         { "x": -3.25, "y": -0.50 },
+      "dont_know":  { "x": -1.00, "y":  0.00 }
     },
     {
       "id": "Q7",
       "short_label": "Regionale Subsistenz",
-      "question": "Könnten wesentliche Teile des Produkts lokal hergestellt oder in einer regionalen Werkstatt (z. B. 3D-Druck, Tischlerei) nachgebaut werden?",
-      "why_it_matters": "Regionale Reparaturfähigkeit und Ersatzteilversorgung machen uns unabhängig von globalen Lieferketten.",
-      "yes": { "x": 3, "y": 0 },
-      "no": { "x": -2, "y": 0 },
-      "dont_know": { "x": -1, "y": 0 }
+      "question": "Könnten wesentliche Teile des Produkts lokal hergestellt oder in einer regionalen Werkstatt nachgebaut werden?",
+      "why_it_matters": "Regionale Produktion verkürzt Lieferwege und macht die Versorgung krisensicher und unabhängiger von globalen Ausbeutungsstrukturen.",
+      "yes":        { "x":  3.25, "y":  0.00 },
+      "no":         { "x": -3.25, "y":  0.00 },
+      "dont_know":  { "x": -1.00, "y":  0.00 }
     },
     {
       "id": "Q8",
       "short_label": "Zukunftssichere Modularität",
       "question": "Können technische Kernkomponenten (wie Akkus oder Chips) bei Veralterung einzeln getauscht werden, während das Gehäuse erhalten bleibt?",
-      "why_it_matters": "Modularität erlaubt technisches Upgrading, ohne das gesamte materielle Objekt entsorgen zu müssen.",
-      "yes": { "x": 3, "y": 0 },
-      "no": { "x": -3, "y": 0 },
-      "dont_know": { "x": -1, "y": 0 }
+      "why_it_matters": "Modularität verhindert, dass ein ansonsten perfektes Produkt wegen eines einzelnen defekten oder veralteten Teils zum Elektroschrott wird.",
+      "yes":        { "x":  0.25, "y":  0.00 },
+      "no":         { "x": -0.25, "y":  0.00 },
+      "dont_know":  { "x": -0.25, "y":  0.00 }
+    },
+    {
+      "id": "Q9",
+      "short_label": "Ressourcen Aufwand",
+      "question": "Bindet das Produkt viele Rohstoffe/Ressourcen und oder wird für deren Verarbeitung viel Energie Aufgewendet?",
+      "why_it_matters": "Aufwendige Verarbeitung von Rohstoffen bindet Energie und Rohstoffe die nicht in den Kreislauf zurückgeführt/verbraucht werden und somit verloren gehen. z.B. Abgerodete Regenwälder etc.",
+      "yes":        { "x": -3.25, "y":  0.00 },
+      "no":         { "x":  3.25, "y":  0.00 },
+      "dont_know":  { "x": -1.00, "y":  0.00 }
     }
   ]
 }
