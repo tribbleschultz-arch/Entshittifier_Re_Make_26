@@ -273,22 +273,15 @@ export default function App() {
                         <stop offset="0%" stopColor="#ABD037" stopOpacity="0.45"/>
                         <stop offset="100%" stopColor="#ABD037" stopOpacity="0"/>
                       </radialGradient>
-                      <radialGradient id="potentialFill" cx="0.5" cy="0.5" r="0.5">
-                        <stop offset="0%" stopColor="#FDB917" stopOpacity="0.3"/>
-                        <stop offset="100%" stopColor="#FDB917" stopOpacity="0"/>
-                      </radialGradient>
                       <linearGradient id="arcStrokeGradient" x1="0" y1="0" x2="1" y2="1">
                         <stop offset="0%" stopColor="#2D6A4F" stopOpacity="0.7"/>
                         <stop offset="100%" stopColor="#2D6A4F" stopOpacity="0"/>
                       </linearGradient>
                     </defs>
 
-                    {/* Axis lines */}
-                    <line x1="100" y1="0" x2="100" y2="200" stroke="#D1E0D7" strokeWidth="1" />
-                    <line x1="0" y1="100" x2="200" y2="100" stroke="#D1E0D7" strokeWidth="1" />
-
-                    {/* TR Quadrant Background (Potential) - reversed radial gradient from origin */}
-                    <rect x="100" y="0" width="100" height="100" fill="url(#potentialFill)" />
+                    {/* Axis lines - very subtle translucent green */}
+                    <line x1="100" y1="0" x2="100" y2="200" stroke="rgba(45,106,79,0.15)" strokeWidth="1.5" />
+                    <line x1="0" y1="100" x2="200" y2="100" stroke="rgba(45,106,79,0.15)" strokeWidth="1.5" />
                     
                     {/* TR Quadrant Arc Fill (Suffizient) - active green radial gradient from top-right corner */}
                     <path d="M 200 0 L 100 0 A 100 100 0 0 0 200 100 Z" fill="url(#suffizienzFill)" />
@@ -297,26 +290,20 @@ export default function App() {
                     <path d="M 100 0 A 100 100 0 0 0 200 100" fill="none" stroke="url(#arcStrokeGradient)" strokeWidth="1.5" strokeDasharray="4 6" />
                   </svg>
 
-                  {/* Elegant Axis Labels */}
-                  <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur shadow-sm px-3 py-1 rounded-full text-[9px] font-bold text-natural-text uppercase tracking-widest border border-natural-border flex items-center gap-1 z-10">
-                    Grundbedürfnis <span className="text-gray-400">↑</span>
-                  </div>
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur shadow-sm px-3 py-1 rounded-full text-[9px] font-bold text-gray-500 uppercase tracking-widest border border-natural-border flex items-center gap-1 z-10">
-                    <span className="text-gray-400">↓</span> Exzess
+                  {/* Elegant Axis Labels (Only Maximums) */}
+                  <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur shadow-sm px-3 py-1 rounded-full text-[8.5px] font-bold text-natural-primary uppercase tracking-[0.15em] border border-natural-border flex items-center gap-1 z-10 transition-colors">
+                    Grundbedürfnis <span className="opacity-50">↑</span>
                   </div>
 
-                  <div className="absolute top-1/2 right-2 -translate-y-1/2 translate-x-1/2 -rotate-90 bg-white/90 backdrop-blur shadow-sm px-3 py-1 rounded-full text-[9px] font-bold text-natural-primary uppercase tracking-widest border border-natural-border flex items-center gap-1 z-10 origin-center">
-                    Nachhaltigkeit <span className="text-natural-primary/50">↑</span>
-                  </div>
-                  <div className="absolute top-1/2 left-2 -translate-y-1/2 -translate-x-1/2 -rotate-90 bg-white/90 backdrop-blur shadow-sm px-3 py-1 rounded-full text-[9px] font-bold text-gray-500 uppercase tracking-widest border border-natural-border flex items-center gap-1 z-10 origin-center">
-                    <span className="text-gray-400">↓</span> Gering
+                  <div className="absolute top-1/2 right-3 -translate-y-1/2 translate-x-1/2 -rotate-90 bg-white/95 backdrop-blur shadow-sm px-3 py-1 rounded-full text-[8.5px] font-bold text-natural-primary uppercase tracking-[0.15em] border border-natural-border flex items-center gap-1 z-10 origin-center transition-colors">
+                    Nachhaltigkeit <span className="opacity-50">↑</span>
                   </div>
 
                   {/* Dynamic internal labels for Top Right */}
-                  <div className="absolute top-[8%] right-[8%] text-[8px] uppercase tracking-widest font-bold text-[#7ca019] text-right pointer-events-none">
+                  <div className="absolute top-[8%] right-[8%] text-[8.5px] uppercase tracking-[0.15em] font-bold text-[#7ca019] text-right pointer-events-none">
                     Suffizienz
                   </div>
-                  <div className="absolute top-[41%] right-[38%] text-[8px] uppercase tracking-widest font-bold text-orange-500/80 text-right pointer-events-none">
+                  <div className="absolute top-[41%] right-[38%] text-[8px] uppercase tracking-[0.15em] font-bold text-natural-primary/40 text-right pointer-events-none">
                     Potential
                   </div>
 
