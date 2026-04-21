@@ -2,55 +2,39 @@
   "questions": [
     {
       "id": "Q1",
-      "short_label": "Kann ich es reparieren lassen?",
-      "question": "Kann das Produkt von einer normalen Werkstatt oder einem Reparaturcafé repariert werden – ohne Spezialwerkzeug vom Hersteller?",
-      "why_it_matters": "Reparierbarkeit ist das Herzstück der Kreislaufwirtschaft. Nicht reparierbare Produkte enden zwangsläufig im Müll.",
-      "yes_weight": 1.0,
-      "no_weight": 0.0,
-      "dont_know_weight": 0.28,
-      "question_multiplier": 18,
-      "var_1": "",
-      "var_2": "",
-      "var_3": ""
+      "short_label": "Reparierbarkeit",
+      "question": "Kann das Produkt von einer normalen Werkstatt oder dir selbst repariert werden (standardisiertes Werkzeug/Bauteile)?",
+      "why_it_matters": "Reparierbarkeit verlängert die Lebensdauer drastisch und macht uns unabhängig vom Wegwerfzyklus. Das schont Ressourcen und unterstützt Suffizienz.",
+      "yes": { "x": 6, "y": 1 },
+      "no": { "x": -5, "y": -1 },
+      "dont_know": { "x": 0, "y": 0 }
     },
     {
       "id": "Q2",
-      "short_label": "Gibt es Ersatzteile?",
-      "question": "Sind Ersatzteile öffentlich erhältlich – nicht nur direkt beim Hersteller, sondern auch bei Drittanbietern?",
-      "why_it_matters": "Standardisierte, frei verfügbare Ersatzteile verlängern die Lebensdauer und reduzieren Herstellerabhängigkeit.",
-      "yes_weight": 1.0,
-      "no_weight": 0.0,
-      "dont_know_weight": 0.29,
-      "question_multiplier": 14,
-      "var_1": "",
-      "var_2": "",
-      "var_3": ""
+      "short_label": "Status & Luxus",
+      "question": "Dient dieses Produkt primär als Statussymbol, Überfluss oder reiner Unterhaltung (anstatt ein konkretes Grundbedürfnis zu erfüllen)?",
+      "why_it_matters": "Produkte, die primär dem Prestige dienen, verleiten zu Überkonsum und erfüllen selten essenzielle menschliche Bedürfnisse.",
+      "yes": { "x": -3, "y": -9 },
+      "no": { "x": 3, "y": 4 },
+      "dont_know": { "x": 0, "y": -1 }
     },
     {
       "id": "Q3",
-      "short_label": "Akku tauschbar?",
-      "question": "Kann der Akku vom Nutzer selbst mit gängigem Werkzeug gewechselt werden?",
-      "why_it_matters": "Akkus sind Verschleißteile. Ein fest verbauter Akku macht das Gerät nach wenigen Jahren oft unbrauchbar.",
-      "yes_weight": 1.0,
-      "no_weight": 0.0,
-      "dont_know_weight": 0.20,
-      "question_multiplier": 15,
-      "var_1": "",
-      "var_2": "",
-      "var_3": ""
+      "short_label": "Nutzungsdauer",
+      "question": "Ist das Design so zeitlos und die Hardware so robust, dass du es für mindestens 10-15 Jahre nutzen wirst?",
+      "why_it_matters": "Oft zwingen uns geplante Obsoleszenz oder kurzweilige Trends zu schnellen Neukäufen. Echte Langlebigkeit ist gelebte Suffizienz.",
+      "yes": { "x": 5, "y": 2 },
+      "no": { "x": -5, "y": -2 },
+      "dont_know": { "x": -1, "y": 0 }
     },
     {
       "id": "Q4",
-      "short_label": "Gibt es Software-Updates?",
-      "question": "Bietet der Hersteller auch nach mehreren Jahren noch regelmäßige Software- und Sicherheitsupdates an?",
-      "why_it_matters": "Ohne Software-Updates werden smarte Geräte schnell zu einem Sicherheitsrisiko und verlieren ihre Funktionalität.",
-      "yes_weight": 1.0,
-      "no_weight": 0.0,
-      "dont_know_weight": 0.40,
-      "question_multiplier": 12,
-      "var_1": "",
-      "var_2": "",
-      "var_3": ""
+      "short_label": "Gemeinschaftliche Nutzung",
+      "question": "Eignet sich dieses Produkt hervorragend dafür, mit Nachbarn, Freunden oder einer Community geteilt zu werden (z. B. Werkzeug, selten genutzte Geräte)?",
+      "why_it_matters": "Eigentum als Dienstleistung oder Teilen reduziert den Gesamtbedarf an produzierten Gütern massiv und bedient echte soziale Bedürfnisse.",
+      "yes": { "x": 4, "y": 3 },
+      "no": { "x": -3, "y": -1 },
+      "dont_know": { "x": 0, "y": 0 }
     }
   ]
 }
