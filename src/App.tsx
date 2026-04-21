@@ -75,6 +75,11 @@ export default function App() {
   // Determine Active Zone
   const activeZone = useMemo(() => {
     if (!zones) return null;
+
+    // Check center neutral zone first
+    const distFromCenter = Math.sqrt(normX * normX + normY * normY);
+    if (distFromCenter <= 0.25) return zones.center_neutral;
+
     if (normX < 0 && normY >= 0) return zones.top_left;
     else if (normX < 0 && normY < 0) return zones.bottom_left;
     else if (normX >= 0 && normY < 0) return zones.bottom_right;
@@ -303,7 +308,7 @@ export default function App() {
                   <div className="absolute top-[8%] right-[8%] text-[8.5px] uppercase tracking-[0.15em] font-bold text-[#7ca019] text-right pointer-events-none">
                     Suffizienz
                   </div>
-                  <div className="absolute top-[41%] right-[38%] text-[8px] uppercase tracking-[0.15em] font-bold text-natural-primary/40 text-right pointer-events-none">
+                  <div className="absolute top-[41%] right-[22%] text-[8px] uppercase tracking-[0.15em] font-bold text-natural-primary/40 text-right pointer-events-none">
                     Potential
                   </div>
 

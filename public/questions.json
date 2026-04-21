@@ -1,40 +1,85 @@
 {
   "questions": [
     {
-      "id": "Q1",
-      "short_label": "Reparierbarkeit",
-      "question": "Kann das Produkt von einer normalen Werkstatt oder dir selbst repariert werden (standardisiertes Werkzeug/Bauteile)?",
-      "why_it_matters": "Reparierbarkeit verlängert die Lebensdauer drastisch und macht uns unabhängig vom Wegwerfzyklus. Das schont Ressourcen und unterstützt Suffizienz.",
-      "yes": { "x": 6, "y": 1 },
-      "no": { "x": -5, "y": -1 },
-      "dont_know": { "x": 0, "y": 0 }
-    },
-    {
-      "id": "Q2",
-      "short_label": "Status & Luxus",
-      "question": "Dient dieses Produkt primär als Statussymbol, Überfluss oder reiner Unterhaltung (anstatt ein konkretes Grundbedürfnis zu erfüllen)?",
-      "why_it_matters": "Produkte, die primär dem Prestige dienen, verleiten zu Überkonsum und erfüllen selten essenzielle menschliche Bedürfnisse.",
-      "yes": { "x": -3, "y": -9 },
-      "no": { "x": 3, "y": 4 },
+      "id": "Q0",
+      "short_label": "Impuls-Check",
+      "question": "Würdest du dir dieses Produkt auch dann noch kaufen, wenn du eine Woche Bedenkzeit hättest – ohne neue Werbung oder Social-Media-Impulse dazu zu sehen?",
+      "why_it_matters": "Echte Bedürfnisse überstehen eine Wartezeit. Impulskäufe hingegen verlieren ihren Reiz, sobald der externe Auslöser wegfällt. Diese Frage trennt rationale Notwendigkeit von emotionalem Begehren.",
+      "yes": { "x": 0, "y": 4 },
+      "no": { "x": 0, "y": -4 },
       "dont_know": { "x": 0, "y": -1 }
     },
     {
+      "id": "Q1",
+      "short_label": "Bedürfnis-Stabilität",
+      "question": "Würdest du dieses Bedürfnis auch dann noch haben, wenn es dafür morgen keine Werbung und keine Social-Media-Trends mehr gäbe?",
+      "why_it_matters": "Echte Bedürfnisse existieren unabhängig von künstlicher Nachfrageerzeugung durch Marketing. Dies entlarvt fremdbestimmten Konsum.",
+      "yes": { "x": 1, "y": 4 },
+      "no": { "x": -1, "y": -4 },
+      "dont_know": { "x": 0, "y": -1 }
+    },
+    {
+      "id": "Q2",
+      "short_label": "Gemeinwohl-Optimierung",
+      "question": "Ist das Produkt explizit darauf ausgelegt, geteilt, gemeinsam genutzt oder als Teil einer öffentlichen Infrastruktur zu funktionieren?",
+      "why_it_matters": "Sharing-Modelle reduzieren die Menge an benötigten physischen Gütern pro Person massiv und fördern soziale Interaktion.",
+      "yes": { "x": 2, "y": 2 },
+      "no": { "x": -2, "y": -2 },
+      "dont_know": { "x": 0, "y": 0 }
+    },
+    {
       "id": "Q3",
-      "short_label": "Nutzungsdauer",
-      "question": "Ist das Design so zeitlos und die Hardware so robust, dass du es für mindestens 10-15 Jahre nutzen wirst?",
-      "why_it_matters": "Oft zwingen uns geplante Obsoleszenz oder kurzweilige Trends zu schnellen Neukäufen. Echte Langlebigkeit ist gelebte Suffizienz.",
-      "yes": { "x": 5, "y": 2 },
-      "no": { "x": -5, "y": -2 },
-      "dont_know": { "x": -1, "y": 0 }
+      "short_label": "Zeitlose Nutzbarkeit",
+      "question": "Ist das Produkt so gestaltet (einfache Formen, kein Trend-Design, keine unnötige Software), dass es auch in 20 Jahren noch voll nutzbar ist?",
+      "why_it_matters": "Ästhetische und softwarebasierte Obsoleszenz führt oft dazu, dass funktionierende Dinge weggeworfen werden. Zeitlosigkeit ist gelebte Ressourcenschonung.",
+      "yes": { "x": 2, "y": 2 },
+      "no": { "x": -2, "y": -2 },
+      "dont_know": { "x": -1, "y": -1 }
     },
     {
       "id": "Q4",
-      "short_label": "Gemeinschaftliche Nutzung",
-      "question": "Eignet sich dieses Produkt hervorragend dafür, mit Nachbarn, Freunden oder einer Community geteilt zu werden (z. B. Werkzeug, selten genutzte Geräte)?",
-      "why_it_matters": "Eigentum als Dienstleistung oder Teilen reduziert den Gesamtbedarf an produzierten Gütern massiv und bedient echte soziale Bedürfnisse.",
-      "yes": { "x": 4, "y": 3 },
-      "no": { "x": -3, "y": -1 },
+      "short_label": "Funktionale Reduktion",
+      "question": "Ersetzt dieses Produkt durch seine Vielseitigkeit nachweislich den Kauf von mindestens zwei anderen spezialisierten Einzelgeräten?",
+      "why_it_matters": "Ein 'Master-Gerät' reduziert den materiellen Fußabdruck im Haushalt und fördert einen minimalistischen Lebensstil.",
+      "yes": { "x": 1, "y": 3 },
+      "no": { "x": -1, "y": -3 },
       "dont_know": { "x": 0, "y": 0 }
+    },
+    {
+      "id": "Q5",
+      "short_label": "Postwachstums-Geschäftsmodell",
+      "question": "Verdient der Hersteller sein Hauptgeld durch Service und Instandhaltung statt durch den massenhaften Verkauf von Neugeräten?",
+      "why_it_matters": "Wenn Langlebigkeit das Profitmodell des Herstellers ist, verschwindet der Anreiz für geplante Obsoleszenz.",
+      "yes": { "x": 3, "y": 0 },
+      "no": { "x": -3, "y": 0 },
+      "dont_know": { "x": -1, "y": 0 }
+    },
+    {
+      "id": "Q6",
+      "short_label": "Handwerkliche Souveränität",
+      "question": "Kannst du das Produkt mit herkömmlichem Werkzeug öffnen und ohne Software-Sperren oder Klebeverbindungen selbst reparieren?",
+      "why_it_matters": "Reparierbarkeit macht Nutzer unabhängig von Herstellern und verlängert die Produktlebensdauer radikal.",
+      "yes": { "x": 4, "y": 0 },
+      "no": { "x": -4, "y": 0 },
+      "dont_know": { "x": -2, "y": 0 }
+    },
+    {
+      "id": "Q7",
+      "short_label": "Regionale Subsistenz",
+      "question": "Könnten wesentliche Teile des Produkts lokal hergestellt oder in einer regionalen Werkstatt nachgebaut werden?",
+      "why_it_matters": "Regionale Produktion verkürzt Lieferwege und macht die Versorgung krisensicher und unabhängiger von globalen Ausbeutungsstrukturen.",
+      "yes": { "x": 3, "y": 0 },
+      "no": { "x": -3, "y": 0 },
+      "dont_know": { "x": -1, "y": 0 }
+    },
+    {
+      "id": "Q8",
+      "short_label": "Zukunftssichere Modularität",
+      "question": "Können technische Kernkomponenten (wie Akkus oder Chips) bei Veralterung einzeln getauscht werden, während das Gehäuse erhalten bleibt?",
+      "why_it_matters": "Modularität verhindert, dass ein ansonsten perfektes Produkt wegen eines einzelnen defekten oder veralteten Teils zum Elektroschrott wird.",
+      "yes": { "x": 2, "y": 0 },
+      "no": { "x": -2, "y": 0 },
+      "dont_know": { "x": -1, "y": 0 }
     }
   ]
 }

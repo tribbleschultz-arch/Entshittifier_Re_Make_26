@@ -24,4 +24,5 @@ export interface EinordnungData {
   bottom_right: ZoneInfo;
   top_right_potential: ZoneInfo;
   top_right_suffizient: ZoneInfo;
+  center_neutral: ZoneInfo;
 }

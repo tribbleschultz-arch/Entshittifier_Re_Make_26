@@ -18,5 +18,9 @@
   "top_right_suffizient": {
     "name": "Suffizienz-Pionier",
     "sentence": "Hervorragend! Dieses Produkt erfüllt deine Bedürfnisse ideal bei absolut nachhaltiger, reparierbarer Ausgestaltung. Ein starkes Vorzeigebeispiel für die echte Kreislaufwirtschaft."
+  },
+  "center_neutral": {
+    "name": "Status Quo",
+    "sentence": "Dieses Produkt verhält sich unauffällig in der Mitte. Es gibt weder drastische negative Auswirkungen noch revolutionäre ökologische Vorteile."
   }
 }
