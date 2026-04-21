@@ -1,0 +1,22 @@
+{
+  "top_left": {
+    "name": "Notwendig, aber ausbaufähig",
+    "sentence": "Das Produkt adressiert ein Grundbedürfnis, offenbart aber deutliche Defizite bei der Suffizienz. Es gibt höchstwahrscheinlich langlebigere und ressourcenschonendere Alternativen."
+  },
+  "bottom_left": {
+    "name": "Kritischer Statuskonsum",
+    "sentence": "Geringe Suffizienz gepaart mit einem Produkt, das eher dem Luxus oder kurzweiligen Exzess dient. Überdenke kritisch, ob dieser Konsum für dich wirklich essenziell ist."
+  },
+  "bottom_right": {
+    "name": "Nachhaltiger Luxus",
+    "sentence": "Dieses Produkt ist zwar nicht zwingend im Alltag essenziell, punktet dafür aber mit einem wunderbar suffizienten und reparaturfreundlichen System-Design."
+  },
+  "top_right_potential": {
+    "name": "Starkes Potenzial",
+    "sentence": "Dein Produkt bedient ein echtes Grundbedürfnis und weist einige hervorragende Ansätze auf. Ein paar Kriterien verhindern jedoch noch den Sprung in den absolut optimalen, suffizienten Bereich."
+  },
+  "top_right_suffizient": {
+    "name": "Suffizienz-Pionier",
+    "sentence": "Hervorragend! Dieses Produkt erfüllt deine Bedürfnisse ideal bei absolut nachhaltiger, reparierbarer Ausgestaltung. Ein starkes Vorzeigebeispiel für die echte Kreislaufwirtschaft."
+  }
+}

@@ -70,7 +70,7 @@ function buildBlobPath(nx: number, ny: number, t: number, layer: number = 0): st
   const redFactor = Math.max(0, -nx) * Math.max(0, -ny); // internal highly spiky (Bottom Left)
 
   // Adjust global time scaling based on "excitedness" (bottom right is fast)
-  const speed = 1.0 + (blueFactor * 1.5) + (redFactor * 0.5);
+  const speed = 1.2 + (blueFactor * 2.0) + (redFactor * 0.8);
   const time = t * speed;
 
   for (let i = 0; i <= numPoints; i++) {
@@ -78,31 +78,31 @@ function buildBlobPath(nx: number, ny: number, t: number, layer: number = 0): st
     let r = rBase;
 
     // 1) Base breathing: slow, gentle
-    r += Math.sin(time * 1.5 + angle * 3) * 3;
+    r += Math.sin(time * 2.0 + angle * 3) * 5;
 
     // 2) Smooth Wavy (nx > 0)
     if (smoothFactor > 0.01) {
-      r += Math.sin(angle * 4 - time * 2) * (5 * smoothFactor);
-      r += Math.sin(angle * 3 + time * 1.5) * (3 * smoothFactor);
+      r += Math.sin(angle * 4 - time * 2) * (8 * smoothFactor);
+      r += Math.sin(angle * 3 + time * 1.5) * (5 * smoothFactor);
     }
 
     // 3) Excited Blue Waves (+x, -y)
     if (blueFactor > 0.01) {
-      r += Math.cos(angle * 8 + time * 6) * (8 * blueFactor);
+      r += Math.cos(angle * 8 + time * 6) * (12 * blueFactor);
     }
 
     // 4) Spiky Edge (-x)
     if (spikyEdge > 0.01) {
-      const spikeFreq = 16 + layer * 4; 
-      r += Math.sin(angle * spikeFreq + time * 4) * (7 * spikyEdge);
-      r += Math.cos(angle * (spikeFreq * 1.5) - time * 3.5) * (5 * spikyEdge);
+      const spikeFreq = 20 + layer * 6; 
+      r += Math.sin(angle * spikeFreq + time * 4) * (12 * spikyEdge);
+      r += Math.cos(angle * (spikeFreq * 1.5) - time * 3.5) * (8 * spikyEdge);
     }
 
     // 5) Internal Spikes (-x, -y) ONLY active heavily on inner layers
     if (layer > 0 && redFactor > 0.01) {
       const innerSpikeFreq = 24 + layer * 8;
       // Multiplying by layer makes innermost layer the spikiest!
-      r += Math.sin(angle * innerSpikeFreq + time * 8) * (18 * redFactor * layer);
+      r += Math.sin(angle * innerSpikeFreq + time * 8) * (30 * redFactor * layer);
     }
 
     // Clamp radius
@@ -117,34 +117,34 @@ function buildBlobPath(nx: number, ny: number, t: number, layer: number = 0): st
   return d + "Z";
 }
 
-// Bilinear interpolation between the 4 Quadrants
+// A completely re-written radial interpolation logic to perfectly map the colors provided 
+// by the reference picture, scaling across Euclidean distances from quadrant corners.
 function interpolateColor(nx: number, ny: number): string {
-  // Q1: Top Right (+,+) -> Green
-  const c1 = { r: 171, g: 208, b: 55 }; // #ABD037
-  // Q2: Top Left (-,+) -> Yellow
-  const c2 = { r: 253, g: 185, b: 23 }; // #FDB917
-  // Q3: Bottom Left (-,-) -> Red
-  const c3 = { r: 181, g: 9,  b: 0 }; // #B50900
-  // Q4: Bottom Right (+,-) -> Purple
-  const c4 = { r: 151,  g: 65, b: 152 }; // #974198
+  const c1 = { r: 171, g: 208, b: 55 };  // Q1: Top Right (+,+) -> Green (#ABD037)
+  const c2 = { r: 253, g: 185, b: 23 };  // Q2: Top Left (-,+) -> Yellow (#FDB917)
+  const c3 = { r: 181, g: 9,   b: 0 };   // Q3: Bottom Left (-,-) -> Red (#B50900)
+  const c4 = { r: 151, g: 65,  b: 152 }; // Q4: Bottom Right (+,-) -> Purple (#974198)
 
-  const tx = (nx + 1) / 2; // 0 (Left) to 1 (Right)
-  const ty = (ny + 1) / 2; // 0 (Bottom) to 1 (Top)
+  // Max distance diagonally across the full box is 2.828.
+  const MAX_DIST = 2.828;
 
-  // Bottom row (-Y) interpolation
-  const rBottom = c3.r * (1 - tx) + c4.r * tx;
-  const gBottom = c3.g * (1 - tx) + c4.g * tx;
-  const bBottom = c3.b * (1 - tx) + c4.b * tx;
+  // Calculate distance from each of the 4 absolute reference corners
+  const d1 = Math.max(0, 1 - Math.sqrt(Math.pow(1 - nx, 2)  + Math.pow(1 - ny, 2))  / MAX_DIST);
+  const d2 = Math.max(0, 1 - Math.sqrt(Math.pow(-1 - nx, 2) + Math.pow(1 - ny, 2))  / MAX_DIST);
+  const d3 = Math.max(0, 1 - Math.sqrt(Math.pow(-1 - nx, 2) + Math.pow(-1 - ny, 2)) / MAX_DIST);
+  const d4 = Math.max(0, 1 - Math.sqrt(Math.pow(1 - nx, 2)  + Math.pow(-1 - ny, 2)) / MAX_DIST);
 
-  // Top row (+Y) interpolation
-  const rTop = c2.r * (1 - tx) + c1.r * tx;
-  const gTop = c2.g * (1 - tx) + c1.g * tx;
-  const bTop = c2.b * (1 - tx) + c1.b * tx;
+  // Exponent dictates how fast the blend falls off (higher -> stays "pure" closer to corners)
+  const p = 3.0;
+  const w1 = Math.pow(d1, p);
+  const w2 = Math.pow(d2, p);
+  const w3 = Math.pow(d3, p);
+  const w4 = Math.pow(d4, p);
 
-  // Y-axis blend
-  const r = rBottom * (1 - ty) + rTop * ty;
-  const g = gBottom * (1 - ty) + gTop * ty;
-  const b = bBottom * (1 - ty) + bTop * ty;
+  const sum = w1 + w2 + w3 + w4 || 1;
+  const r = (c1.r * w1 + c2.r * w2 + c3.r * w3 + c4.r * w4) / sum;
+  const g = (c1.g * w1 + c2.g * w2 + c3.g * w3 + c4.g * w4) / sum;
+  const b = (c1.b * w1 + c2.b * w2 + c3.b * w3 + c4.b * w4) / sum;
 
   return `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`;
 }

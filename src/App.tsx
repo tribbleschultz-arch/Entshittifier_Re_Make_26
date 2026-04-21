@@ -1,13 +1,14 @@
 import { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'motion/react';
 import { ChevronDown, RotateCcw } from 'lucide-react';
-import { Question, ScoreImpact } from './types';
+import { Question, ScoreImpact, EinordnungData, ZoneInfo } from './types';
 import { ScoreBlob } from './components/ScoreBlob';
 
 type AnswerOption = 'yes' | 'no' | 'dont_know';
 
 export default function App() {
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [zones, setZones] = useState<EinordnungData | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, AnswerOption>>({});
   const [maxBounds, setMaxBounds] = useState<ScoreImpact>({ x: 0.1, y: 0.1 });
@@ -15,20 +16,29 @@ export default function App() {
   const [openDetails, setOpenDetails] = useState<Record<string, boolean>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const fetchQuestions = async () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/questions.json?t=${new Date().getTime()}`);
-      if (!res.ok) throw new Error('Failed to fetch questions');
-      const data = await res.json();
-      setQuestions(data.questions);
+      const [resQ, resZ] = await Promise.all([
+        fetch(`/questions.json?t=${new Date().getTime()}`),
+        fetch(`/einordnung.json?t=${new Date().getTime()}`)
+      ]);
+      
+      if (!resQ.ok || !resZ.ok) throw new Error('Failed to fetch data');
+      
+      const dataQ = await resQ.json();
+      const dataZ = await resZ.json();
+      
+      setQuestions(dataQ.questions);
+      setZones(dataZ);
 
       // Compute theoretical maximum bounds
       let maxX = 0;
       let maxY = 0;
-      data.questions.forEach((q: Question) => {
+      dataQ.questions.forEach((q: Question) => {
         maxX += Math.max(Math.abs(q.yes.x), Math.abs(q.no.x), Math.abs(q.dont_know.x));
         maxY += Math.max(Math.abs(q.yes.y), Math.abs(q.no.y), Math.abs(q.dont_know.y));
       });
@@ -58,18 +68,42 @@ export default function App() {
     return { x, y };
   }, [answers, questions]);
 
+  // Normalized scores bounded to [-1, 1]
+  const normX = useMemo(() => Math.max(-1, Math.min(1, currentScore.x / maxBounds.x)), [currentScore.x, maxBounds.x]);
+  const normY = useMemo(() => Math.max(-1, Math.min(1, currentScore.y / maxBounds.y)), [currentScore.y, maxBounds.y]);
+
+  // Determine Active Zone
+  const activeZone = useMemo(() => {
+    if (!zones) return null;
+    if (normX < 0 && normY >= 0) return zones.top_left;
+    else if (normX < 0 && normY < 0) return zones.bottom_left;
+    else if (normX >= 0 && normY < 0) return zones.bottom_right;
+    else {
+      // Top Right: requires radius check from Top-Right corner (1, 1)
+      const distFromTR = Math.sqrt(Math.pow(1 - normX, 2) + Math.pow(1 - normY, 2));
+      return distFromTR <= 1.0 ? zones.top_right_suffizient : zones.top_right_potential;
+    }
+  }, [normX, normY, zones]);
+
   const handleAnswer = (option: AnswerOption) => {
+    if (isTransitioning) return;
+
     const currentQ = questions[currentIndex];
+    if (!currentQ) return;
+
     setAnswers((prev) => ({ ...prev, [currentQ.id]: option }));
+    setIsTransitioning(true);
 
     if (currentIndex < questions.length - 1) {
       setTimeout(() => {
-        setCurrentIndex((prev) => prev + 1);
+        setCurrentIndex((prev) => Math.min(prev + 1, questions.length - 1));
         setOpenDetails({});
+        setIsTransitioning(false);
       }, 400); 
     } else {
       setTimeout(() => {
         setIsFinished(true);
+        setIsTransitioning(false);
       }, 400);
     }
   };
@@ -79,6 +113,7 @@ export default function App() {
     setCurrentIndex(0);
     setIsFinished(false);
     setOpenDetails({});
+    setIsTransitioning(false);
     fetchQuestions();
   };
 
@@ -110,13 +145,11 @@ export default function App() {
 
   if (questions.length === 0) return null;
 
-  const currentQ = questions[currentIndex];
+  const currentQ = questions[currentIndex] || questions[0];
+  if (!currentQ && !isFinished) return null;
+
   const answeredCount = Object.keys(answers).length;
   const progress = isFinished ? 100 : Math.min(100, Math.max(0, (currentIndex / questions.length) * 100));
-
-  // Normalized scores bounded to [-1, 1]
-  const normX = Math.max(-1, Math.min(1, currentScore.x / maxBounds.x));
-  const normY = Math.max(-1, Math.min(1, currentScore.y / maxBounds.y));
 
   return (
     <div className="flex flex-col h-[100dvh] bg-natural-bg font-sans max-w-md mx-auto relative overflow-hidden">
@@ -231,36 +264,59 @@ export default function App() {
               <div className="flex-1 flex flex-col items-center justify-start w-full px-6">
                 
                 {/* The 2D Coordinate Grid */}
-                <div className="relative w-full max-w-sm aspect-square bg-white rounded-[32px] border border-natural-border shadow-[0_10px_30px_rgba(45,106,79,0.05)] mb-8 overflow-hidden shrink-0 mt-4">
+                <div className="relative w-full max-w-sm aspect-square bg-white rounded-[32px] border border-natural-border shadow-[0_10px_30px_rgba(45,106,79,0.05)] mb-4 overflow-hidden shrink-0 mt-4">
                   
-                  {/* Axis lines */}
-                  <div className="absolute left-1/2 top-0 bottom-0 w-px bg-natural-border -translate-x-1/2"></div>
-                  <div className="absolute top-1/2 left-0 right-0 h-px bg-natural-border -translate-y-1/2"></div>
+                  {/* Highlight Zones with beautiful SVG overlays */}
+                  <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 200 200" preserveAspectRatio="none">
+                    <defs>
+                      <radialGradient id="suffizienzFill" cx="1" cy="0" r="1">
+                        <stop offset="0%" stopColor="#ABD037" stopOpacity="0.45"/>
+                        <stop offset="100%" stopColor="#ABD037" stopOpacity="0"/>
+                      </radialGradient>
+                      <radialGradient id="potentialFill" cx="0.5" cy="0.5" r="0.5">
+                        <stop offset="0%" stopColor="#FDB917" stopOpacity="0.3"/>
+                        <stop offset="100%" stopColor="#FDB917" stopOpacity="0"/>
+                      </radialGradient>
+                      <linearGradient id="arcStrokeGradient" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stopColor="#2D6A4F" stopOpacity="0.7"/>
+                        <stop offset="100%" stopColor="#2D6A4F" stopOpacity="0"/>
+                      </linearGradient>
+                    </defs>
 
-                  {/* Draw the Sufficiency Arc in +X, +Y quadrant (Top Right) */}
-                  <div className="absolute w-[50%] h-[50%] right-0 top-0 overflow-hidden pointer-events-none">
-                     <div className="absolute bottom-0 left-0 w-[200%] h-[200%] rounded-full border-2 border-dashed border-natural-primary/30 origin-bottom-left pointer-events-none"></div>
+                    {/* Axis lines */}
+                    <line x1="100" y1="0" x2="100" y2="200" stroke="#D1E0D7" strokeWidth="1" />
+                    <line x1="0" y1="100" x2="200" y2="100" stroke="#D1E0D7" strokeWidth="1" />
+
+                    {/* TR Quadrant Background (Potential) - reversed radial gradient from origin */}
+                    <rect x="100" y="0" width="100" height="100" fill="url(#potentialFill)" />
+                    
+                    {/* TR Quadrant Arc Fill (Suffizient) - active green radial gradient from top-right corner */}
+                    <path d="M 200 0 L 100 0 A 100 100 0 0 0 200 100 Z" fill="url(#suffizienzFill)" />
+                    
+                    {/* The powerful gradient Arc Line - getting stronger towards top-left of the quadrant */}
+                    <path d="M 100 0 A 100 100 0 0 0 200 100" fill="none" stroke="url(#arcStrokeGradient)" strokeWidth="1.5" strokeDasharray="4 6" />
+                  </svg>
+
+                  {/* Elegant Axis Labels */}
+                  <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur shadow-sm px-3 py-1 rounded-full text-[9px] font-bold text-natural-text uppercase tracking-widest border border-natural-border flex items-center gap-1 z-10">
+                    Grundbedürfnis <span className="text-gray-400">↑</span>
+                  </div>
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur shadow-sm px-3 py-1 rounded-full text-[9px] font-bold text-gray-500 uppercase tracking-widest border border-natural-border flex items-center gap-1 z-10">
+                    <span className="text-gray-400">↓</span> Exzess
                   </div>
 
-                  {/* Labels Output */}
-                  <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-[9px] uppercase tracking-widest font-bold text-gray-400 whitespace-nowrap">
-                    Grundbedürfnis
+                  <div className="absolute top-1/2 right-2 -translate-y-1/2 translate-x-1/2 -rotate-90 bg-white/90 backdrop-blur shadow-sm px-3 py-1 rounded-full text-[9px] font-bold text-natural-primary uppercase tracking-widest border border-natural-border flex items-center gap-1 z-10 origin-center">
+                    Nachhaltigkeit <span className="text-natural-primary/50">↑</span>
                   </div>
-                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] uppercase tracking-widest font-bold text-gray-400 whitespace-nowrap">
-                    Exzess / Überfluss
-                  </div>
-                  <div className="absolute top-1/2 -left-6 -translate-y-1/2 -rotate-90 text-[9px] uppercase tracking-widest font-bold text-gray-400 whitespace-nowrap origin-center">
-                    Geringe Suffizienz
-                  </div>
-                  <div className="absolute top-1/2 -right-6 -translate-y-1/2 rotate-90 text-[9px] uppercase tracking-widest font-bold text-gray-400 whitespace-nowrap origin-center">
-                    Nachhaltig
+                  <div className="absolute top-1/2 left-2 -translate-y-1/2 -translate-x-1/2 -rotate-90 bg-white/90 backdrop-blur shadow-sm px-3 py-1 rounded-full text-[9px] font-bold text-gray-500 uppercase tracking-widest border border-natural-border flex items-center gap-1 z-10 origin-center">
+                    <span className="text-gray-400">↓</span> Gering
                   </div>
 
                   {/* Dynamic internal labels for Top Right */}
-                  <div className="absolute top-[18%] right-[15%] text-[8px] uppercase tracking-widest font-bold text-natural-primary/50 text-center pointer-events-none">
-                    Suffizient
+                  <div className="absolute top-[8%] right-[8%] text-[8px] uppercase tracking-widest font-bold text-[#7ca019] text-right pointer-events-none">
+                    Suffizienz
                   </div>
-                  <div className="absolute top-[40%] right-[4%] text-[8px] uppercase tracking-widest font-bold text-orange-400/50 text-center pointer-events-none">
+                  <div className="absolute top-[41%] right-[38%] text-[8px] uppercase tracking-widest font-bold text-orange-500/80 text-right pointer-events-none">
                     Potential
                   </div>
 
@@ -282,6 +338,26 @@ export default function App() {
                   
                 </div>
 
+                {/* Display evaluation text dynamically */}
+                <AnimatePresence mode="wait">
+                  {activeZone && (
+                    <motion.div
+                      key={activeZone.name}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="w-full bg-white p-5 rounded-[24px] border border-natural-border/60 shadow-sm mt-2 mb-8 text-center"
+                    >
+                      <h3 className="font-bold text-natural-primary text-xs uppercase tracking-wider mb-2">
+                        {activeZone.name}
+                      </h3>
+                      <p className="text-[13px] text-gray-500 leading-relaxed">
+                        {activeZone.sentence}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 {/* Interactive Question List  */}
                 <div className="w-full flex flex-col gap-4">
                   {questions.map((q, idx) => {
@@ -294,7 +370,7 @@ export default function App() {
                            <span className="w-6 h-6 rounded-full bg-natural-bg text-natural-primary text-xs font-bold flex items-center justify-center mr-3 shrink-0 mt-0.5">
                              {idx + 1}
                            </span>
-                           <h3 className="font-bold text-natural-text text-[13px] leading-relaxed opacity-90">{q.question}</h3>
+                           <h3 className="font-bold text-natural-text text-[13px] leading-relaxed opacity-90">{q.short_label}</h3>
                         </div>
 
                         {/* Interactive Buttons per Question */}

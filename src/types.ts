@@ -12,3 +12,16 @@ export interface Question {
   no: ScoreImpact;
   dont_know: ScoreImpact;
 }
+
+export interface ZoneInfo {
+  name: string;
+  sentence: string;
+}
+
+export interface EinordnungData {
+  top_left: ZoneInfo;
+  bottom_left: ZoneInfo;
+  bottom_right: ZoneInfo;
+  top_right_potential: ZoneInfo;
+  top_right_suffizient: ZoneInfo;
+}
