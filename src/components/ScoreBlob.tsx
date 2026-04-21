@@ -120,13 +120,13 @@ function buildBlobPath(nx: number, ny: number, t: number, layer: number = 0): st
 // Bilinear interpolation between the 4 Quadrants
 function interpolateColor(nx: number, ny: number): string {
   // Q1: Top Right (+,+) -> Green
-  const c1 = { r: 132, g: 204, b: 22 }; 
-  // Q2: Top Left (-,+) -> Orange
-  const c2 = { r: 249, g: 115, b: 22 }; 
+  const c1 = { r: 171, g: 208, b: 55 }; // #ABD037
+  // Q2: Top Left (-,+) -> Yellow
+  const c2 = { r: 253, g: 185, b: 23 }; // #FDB917
   // Q3: Bottom Left (-,-) -> Red
-  const c3 = { r: 220, g: 38,  b: 38 }; 
-  // Q4: Bottom Right (+,-) -> Blue
-  const c4 = { r: 14,  g: 165, b: 233 }; 
+  const c3 = { r: 181, g: 9,  b: 0 }; // #B50900
+  // Q4: Bottom Right (+,-) -> Purple
+  const c4 = { r: 151,  g: 65, b: 152 }; // #974198
 
   const tx = (nx + 1) / 2; // 0 (Left) to 1 (Right)
   const ty = (ny + 1) / 2; // 0 (Bottom) to 1 (Top)
