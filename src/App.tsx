@@ -9,6 +9,7 @@ type AnswerOption = 'yes' | 'no' | 'dont_know';
 export default function App() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [zones, setZones] = useState<EinordnungData | null>(null);
+  const [hasStarted, setHasStarted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, AnswerOption>>({});
   const [isFinished, setIsFinished] = useState(false);
@@ -130,6 +131,7 @@ export default function App() {
     setAnswers({});
     setCurrentIndex(0);
     setIsFinished(false);
+    setHasStarted(false);
     setOpenDetails({});
     setIsTransitioning(false);
     fetchQuestions();
@@ -162,6 +164,41 @@ export default function App() {
   }
 
   if (questions.length === 0) return null;
+
+  if (!hasStarted) {
+    return (
+      <div className="min-h-[100dvh] bg-natural-bg font-sans text-natural-text overflow-y-auto selection:bg-natural-primary/20">
+        <div className="max-w-md mx-auto w-full min-h-[100dvh] flex flex-col pt-16 pb-12 px-6">
+          <div className="w-full flex-1 flex flex-col items-center justify-center text-center">
+            
+            <h1 className="text-4xl font-black text-natural-text mb-6 tracking-tight">Suffizienz-Check</h1>
+            
+            <p className="text-[15px] text-natural-primary mb-12 leading-relaxed max-w-[280px]">
+              Beantworte eine kurze Reihe an Fragen zu einem Produkt, um seine Nachhaltigkeit und Systemrelevanz zu testen. Am Ende zeigt dir eine 2D-Matrix, wie suffizient das Produkt wirklich ist.
+            </p>
+
+            <button
+              onClick={() => setHasStarted(true)}
+              className="w-full py-4 bg-natural-primary text-white rounded-2xl font-bold text-lg shadow-[0_8px_30px_rgb(45,106,79,0.2)] hover:bg-[#235840] hover:-translate-y-0.5 active:bg-[#1a4430] active:translate-y-0.5 transition-all outline-none focus-visible:ring-4 focus-visible:ring-natural-primary/30"
+            >
+              Jetzt starten
+            </button>
+          </div>
+
+          <div className="mt-16 text-center shrink-0">
+            <div className="w-8 h-px bg-natural-border/60 mx-auto mb-6" />
+            
+            <p className="text-[13px] text-natural-primary/80 leading-relaxed font-medium">
+              Ein Projekt für <strong className="text-natural-primary">Habitat Augsburg e.V.</strong>
+            </p>
+            <p className="text-[13px] text-natural-primary/60 mt-1">
+              Entstanden beim Re_Make Hackathon 2026
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const currentQ = questions[currentIndex] || questions[0];
   if (!currentQ && !isFinished) return null;
