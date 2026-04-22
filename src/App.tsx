@@ -174,7 +174,7 @@ export default function App() {
             <h1 className="text-4xl font-black text-natural-text mb-6 tracking-tight">Suffizienz-Check</h1>
             
             <p className="text-[15px] text-natural-primary mb-12 leading-relaxed max-w-[280px]">
-              Beantworte eine kurze Reihe an Fragen zu einem Produkt, um seine Nachhaltigkeit und Systemrelevanz zu testen. Am Ende zeigt dir eine 2D-Matrix, wie suffizient das Produkt wirklich ist.
+              Beantworte eine kurze Reihe an Fragen zu einem Produkt, um seine Nachhaltigkeit und Systemrelevanz zu testen. Am Ende zeigt dir eine Matrix, ob das Ding suffizient sein könnte.
             </p>
 
             <button
@@ -189,10 +189,7 @@ export default function App() {
             <div className="w-8 h-px bg-natural-border/60 mx-auto mb-6" />
             
             <p className="text-[13px] text-natural-primary/80 leading-relaxed font-medium">
-              Ein Projekt für <strong className="text-natural-primary">Habitat Augsburg e.V.</strong>
-            </p>
-            <p className="text-[13px] text-natural-primary/60 mt-1">
-              Entstanden beim Re_Make Hackathon 2026
+              Ein Projekt entstanden beim <strong className="text-natural-primary">Re_Make Hackathon 2026</strong> des Habitat Augsburg e.V.
             </p>
           </div>
         </div>
