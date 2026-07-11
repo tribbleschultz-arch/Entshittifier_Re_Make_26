@@ -8,12 +8,12 @@
 die im Rahmen des *Re_Make Hackathons 2026* des Habitat Augsburg e.V. entstanden
 ist. Der Nutzer beantwortet eine kurze Reihe von Fragen zu einem Produkt; die
 Antworten werden zu einem Punkt in einer zweidimensionalen Matrix verrechnet, die
-aufzeigt, ob das Produkt im Sinne der Suffizienz (gesellschaftlicher Nutzen bei
-gleichzeitig hoher Nachhaltigkeit) als Vorbild gelten kann.
+zeigt, ob das Produkt im Sinne der Suffizienz (gesellschaftlicher Nutzen bei
+gleichzeitig hoher Nachhaltigkeit) einordnet werden kann.
 
-Die App läuft **vollständig lokal im Browser** – es werden keine externen
-KI-Dienste, APIs oder API-Keys benötigt. Alle Fragen, Gewichtungen und
-Zuordnungen liegen als statische JSON-Dateien vor.
+Alle Fragen, Gewichtungen und Zonen liegen als statische JSON-Dateien vor und
+werden lokal im Browser verarbeitet – es ist keine Server- oder API-Anbindung
+nötig.
 
 ---
 
@@ -93,6 +93,20 @@ Entshittifier_Re_Make_26/
   Zonen-Berechnung in `activeZone`).
 
 ---
+
+## Quellen & Grundlage
+
+Die inhaltliche Auswahl der Fragen und die Einordnung in die Suffizienz-Matrix
+stützen sich auf folgende öffentlich zugängliche Quellen und Literatur:
+
+- WWF Deutschland – *Nachhaltiges Wirtschaften* (Online-Artikel):
+  https://www.wwf.de/nachhaltiges-wirtschaften
+- WWF Deutschland – *Modell Deutschland: Circular Economy* (Broschüre, PDF):
+  https://www.wwf.de/fileadmin/fm-wwf/Publikationen-PDF/Unternehmen/WWF-Modell-Deutschland-Circular-Economy-Broschuere.pdf
+- *Die Donut-Ökonomie – Endlich ein Wirtschaftsmodell, das den Planeten nicht
+  zerstört.* (Hanse, 2018)
+- *Degrowth: Postwachstum zur Einführung.* (Junius, 2021)
+- *Hackathons: Von der Idee zur erfolgreichen Umsetzung.* (ISBN 978-3658260279)
 
 ## Credits
 
