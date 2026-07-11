@@ -31,6 +31,12 @@ Die zugrunde liegende Mathematik (Begrenzung auf ±15, Zonen-Kurven,
 Kreisbögen) ist in `src/App.tsx` implementiert. Eine ausführliche Dokumentation
 der Fragen und ihrer Gewichtung findest du in [`docs/fragen_gewichtung.md`](docs/fragen_gewichtung.md).
 
+![Suffizienz-Matrix mit Score-Blob](docs/matrix.png)
+
+*Die 2D-Matrix aus der App: X = Nachhaltigkeit, Y = gesellschaftliches
+Bedürfnis. Der farbige Blob markiert die aktuelle Auswertung eines Produkts
+(Grün = Suffizient, Gelb = Starkes Potential, Rot = Schwaches Potential).*
+
 ---
 
 ## Projektstruktur
