@@ -1,20 +1,109 @@
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+<img width="1200" height="475" alt="Banner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>
 
-# Run and deploy your AI Studio app
+# Suffizienz-Check
 
-This contains everything you need to run your app locally.
+> Ein interaktives Web-Tool zur Einschätzung der Suffizienz, Reparierbarkeit und
+> Systemrelevanz von Produkten anhand gezielter Fragen – visualisiert in einer
+> 2D-Nachhaltigkeits-Matrix.
 
-View your app in AI Studio: https://ai.studio/apps/6f30c8cd-5a25-4e89-8a22-c91063f00c29
+**Suffizienz-Check** ist eine kleine Single-Page-App (React + Vite + Tailwind),
+die im Rahmen des *Re_Make Hackathons 2026* des Habitat Augsburg e.V. entstanden
+ist. Der Nutzer beantwortet eine kurze Reihe von Fragen zu einem Produkt; die
+Antworten werden zu einem Punkt in einer zweidimensionalen Matrix verrechnet, die
+aufzeigt, ob das Produkt im Sinne der Suffizienz (gesellschaftlicher Nutzen bei
+gleichzeitig hoher Nachhaltigkeit) als Vorbild gelten kann.
 
-## Run Locally
+Die App läuft **vollständig lokal im Browser** – es werden keine externen
+KI-Dienste, APIs oder API-Keys benötigt. Alle Fragen, Gewichtungen und
+Zuordnungen liegen als statische JSON-Dateien vor.
 
-**Prerequisites:**  Node.js
+---
 
+## Funktionsweise
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+1. **Fragen laden:** Beim Start werden `public/questions.json` (die Fragen inkl.
+   Gewichtung) und `public/einordnung.json` (die Matrix-Zonen) geladen.
+2. **Beantworten:** Jede Frage wird mit *Ja* / *Weiß nicht* / *Nein* beantwortet.
+   Jede Antwort verschiebt einen Punkt im Koordinatensystem.
+3. **Auswertung:** Am Ende wird der Punkt in einer 2D-Matrix (X = Nachhaltigkeit,
+   Y = gesellschaftliches Bedürfnis) eingezeichnet und der passenden Zone
+   zugeordnet (z. B. *Suffizient*, *Starkes Potential*, *Schwaches Potential*).
+
+Die zugrunde liegende Mathematik (Begrenzung auf ±15, Zonen-Kurven,
+Kreisbögen) ist in `src/App.tsx` implementiert. Eine ausführliche Dokumentation
+der Fragen und ihrer Gewichtung findest du in [`docs/fragen_gewichtung.md`](docs/fragen_gewichtung.md).
+
+---
+
+## Projektstruktur
+
+```
+Entshittifier_Re_Make_26/
+├── index.html              # HTML-Einstiegspunkt
+├── package.json            # Abhängigkeiten & Skripte
+├── vite.config.ts         # Vite-Konfiguration
+├── tsconfig.json          # TypeScript-Konfiguration
+├── wrangler.toml         # Cloudflare-Deployment-Konfiguration
+├── metadata.json          # App-Metadaten
+├── public/
+│   ├── questions.json     # Fragen + Score-Gewichtung (x/y pro Antwort)
+│   └── einordnung.json   # Matrix-Zonen (Texte pro Zone)
+├── src/
+│   ├── App.tsx            # Hauptlogik: Scoring, Zonen, UI
+│   ├── main.tsx           # React-Einstiegspunkt
+│   ├── types.ts           # TypeScript-Typen
+│   ├── index.css          # Styles (Tailwind)
+│   └── components/
+│       └── ScoreBlob.tsx  # Animierte Blob-Visualisierung des Scores
+└── docs/
+    └── fragen_gewichtung.md  # Doku: Fragen & Gewichtung
+```
+
+---
+
+## Lokales Ausführen
+
+**Voraussetzungen:** Node.js (aktuelle LTS-Version)
+
+1. Abhängigkeiten installieren:
+   ```bash
+   npm install
+   ```
+2. App starten:
+   ```bash
+   npm run dev
+   ```
+3. Die App ist unter `http://localhost:3000` erreichbar.
+
+### Build & Deployment
+
+- **Build:** `npm run build` (Ausgabe in `dist/`)
+- **Preview:** `npm run preview`
+- **Lint:** `npm run lint` (TypeScript-Typecheck via `tsc --noEmit`)
+- **Deployment:** Die App ist für Cloudflare Pages vorkonfiguriert
+  (`wrangler.toml`, `assets`-Verzeichnis `./dist`).
+
+---
+
+## Anpassen
+
+- **Fragen ändern:** Bearbeite `public/questions.json`. Jede Frage hat ein
+  `id`, ein `question`-Text, ein `why_it_matters` und die Score-Verschiebungen
+  `yes` / `no` / `dont_know` als `{ x, y }`-Werte.
+- **Zonen-Texte ändern:** Bearbeite `public/einordnung.json`.
+- **Scoring-Logik ändern:** Siehe `src/App.tsx` (Konstanten `MAX_ABS = 15`,
+  Zonen-Berechnung in `activeZone`).
+
+---
+
+## Credits
+
+- Entstanden beim **Re_Make Hackathon 2026** des *Habitat Augsburg e.V.*
+- Idee & Konzept: Kreislaufwirtschafts- und Suffizienz-Check als
+  Entscheidungshilfe für nachhaltigen Konsum.
+
+## Lizenz
+
+Dieses Projekt steht unter der MIT-Lizenz (siehe `LICENSE`, sofern vorhanden).
